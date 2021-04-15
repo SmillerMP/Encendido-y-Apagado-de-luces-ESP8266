@@ -11,7 +11,7 @@
 #include <IRutils.h>
 
 //definicion del boton en el control
-#define boton_2 0xFF629D
+#define boton "0xFF629D" // <----- Codigo del boton
 
 
 //Variables de la placa
@@ -87,7 +87,7 @@ void loop() {
   if (irrecv.decode(&results)) {
     serialPrintUint64(results.value, HEX);
     Serial.println();
-    if (results.value == boton_2){
+    if (results.value == boton){
       digitalWrite(rele, !digitalRead(rele));
       delay(200);
       }
