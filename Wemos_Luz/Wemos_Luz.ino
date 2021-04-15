@@ -106,7 +106,7 @@ void handleMessage(AdafruitIO_Data *data) {
 
   int command = data->toInt();
 
-  if (command == 1){ //light up the LED
+  if (command == 1){ 
     Serial.print("received <- ");
     Serial.println(command);
      digitalWrite(rele, HIGH);    
