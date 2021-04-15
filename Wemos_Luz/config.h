@@ -1,8 +1,8 @@
 /************************ Configuracion IO Adafruit  *******************************/
 
 // Ingresar su cuenta y su IO KEY de IO Adafuit
-#define IO_USERNAME    "SamuelIMP"
-#define IO_KEY         "aio_Bbqv34zChTNDe0PC0u7IlxkTmJTM"
+#define IO_USERNAME    "SamuelIMP"  // <-------- usuerio de cuenta IO Adafruit 
+#define IO_KEY         "aio_Bbqv34zChTNDe0PC0u7IlxkTmJTM"  // <-------- Clave o Token de cuenta IO Adafruit
 
 /******************************* Configuration WIFI  **************************************/
 
