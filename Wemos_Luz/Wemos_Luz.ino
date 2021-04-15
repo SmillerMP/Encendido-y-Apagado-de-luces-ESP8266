@@ -6,8 +6,6 @@
 //Incluir librerias
 #include <AdafruitIO.h>
 #include <Adafruit_MQTT.h>
-#include <ArduinoHttpClient.h>
-#include <Arduino.h>
 #include <IRremoteESP8266.h>
 #include <IRrecv.h>
 #include <IRutils.h>
