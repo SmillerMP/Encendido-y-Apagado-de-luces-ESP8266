@@ -25,7 +25,7 @@ decode_results results;
 
 // se elije que feed se mandaran los "comandos o datos"
 
-AdafruitIO_Feed *command = io.feed("Luz_Wemos"); // <-------------
+AdafruitIO_Feed *command = io.feed("nombre de feed entre comillas"); // <------------- nombre del feed
 
 void setup() {
 
