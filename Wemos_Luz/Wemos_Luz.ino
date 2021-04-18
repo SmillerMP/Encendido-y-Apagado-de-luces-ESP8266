@@ -12,7 +12,7 @@
 #include <IRutils.h>
 
 //definicion del boton en el control
-#define boton "0xFF629D" // <----- Codigo del boton
+#define boton "0xFFFFFF" // <----- Codigo del boton
 
 
 //Variables de la placa
