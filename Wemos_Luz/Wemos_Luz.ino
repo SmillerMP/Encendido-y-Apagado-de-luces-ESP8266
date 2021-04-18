@@ -38,7 +38,7 @@ void setup() {
   pinMode(D0, OUTPUT);
   
   // Conexion de con el servidor
-  Serial.print("Connecting to Adafruit IO");
+  Serial.print("Conectando con Adafruit IO");
   io.connect();
 
   
@@ -58,7 +58,7 @@ void setup() {
   if (io.status() == AIO_CONNECTED){
      //Conectado
     Serial.println();
-    Serial.println(io.statusText()); 
+    Serial.println("Conexion exitosa con Adafuit IO"); 
     command->save(0);
   }else{
     Serial.println();
@@ -106,11 +106,11 @@ void handleMessage(AdafruitIO_Data *data) {
   int command = data->toInt();
 
   if (command == 1){ 
-    Serial.print("received <- ");
+    Serial.print("recibido <- ");
     Serial.println(command);
      digitalWrite(rele, HIGH);    
   } else {
-    Serial.print("received <- ");
+    Serial.print("recibido <- ");
     Serial.println(command);
     digitalWrite(rele, LOW);
   }
