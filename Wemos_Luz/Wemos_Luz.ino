@@ -116,3 +116,7 @@ void handleMessage(AdafruitIO_Data *data) {
   }
  
 }
+
+//CREDITOS:
+//Adafuit IO
+//Samuel IMP  (Smiller MP)
