@@ -12,29 +12,38 @@
 #include <IRutils.h>
 
 //definicion del boton en el control
-#define boton 0xFFFFFF // <----- Codigo del boton
+#define boton 0xE318261B // <----- Codigo del boton
 
 
-//Variables de la placa
+// ------- Variables de la placa ---------
+// rele en el pin D2
 const int rele = D2;
+
+// Pulsador en el Pin D3
 const int pulsador = D3;
+
+// Recptor control/mando en el pin D5
 const uint16_t recep = D5;
+
 IRrecv irrecv(recep);
 decode_results results;
 
+// Variable que ayuda a sincronizar el server y la placa
+bool estado = false;
+// ----------------------------------------
 
-// se elije que feed se mandaran los "comandos o datos"
-
-AdafruitIO_Feed *command = io.feed("nombre de feed entre comillas"); // <------------- nombre del feed
+// se elije que feed se mandaran los comandos o datos
+AdafruitIO_Feed *command = io.feed("NOMBRE_DEL_FEED"); // <------------- nombre del feed!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 void setup() {
 
   // Inicia la conexion serial
   Serial.begin(115200);
-
   WiFi.mode(WIFI_STA);
   pinMode(rele, OUTPUT);
   pinMode(pulsador, INPUT_PULLUP);
+
+  // PIN D0 controla la luz presente en la placa
   pinMode(D0, OUTPUT);
   
   // Conexion de con el servidor
@@ -71,16 +80,27 @@ void setup() {
 
 void loop() {
 
+
   /* Siempre debe estar en la parte superior del bucle
      Mantiene la comunicacion entre la placa y el servidor
      IO Adafruit procesa los datos entrantes*/
-   if (io.status() == AIO_CONNECTED){
+  if (io.status() == AIO_CONNECTED){
     io.run();
-   }
+  }
 
   //codigo para el pulsador
   if (digitalRead(pulsador) == LOW) { 
-    digitalWrite(rele, !digitalRead(rele));
+    //digitalWrite(rele, !digitalRead(rele));
+    if (estado == false){
+      digitalWrite(rele, HIGH);
+      command->save(1);
+      estado = true;
+    }
+    else{
+      digitalWrite(rele, LOW);
+      command->save(0);
+      estado = false;
+    }
     delay(250);
   }   
 
@@ -89,7 +109,17 @@ void loop() {
     serialPrintUint64(results.value, HEX);
     Serial.println();
     if (results.value == boton){
-      digitalWrite(rele, !digitalRead(rele));
+      //digitalWrite(rele, !digitalRead(rele));
+      if (estado == false){
+      digitalWrite(rele, HIGH);
+      command->save(1);
+      estado = true;
+      }
+      else{
+        digitalWrite(rele, LOW);
+        command->save(0);
+        estado = false;
+      }
       delay(200);
       }
     irrecv.resume(); 
@@ -108,11 +138,13 @@ void handleMessage(AdafruitIO_Data *data) {
   if (command == 1){ 
     Serial.print("recibido <- ");
     Serial.println(command);
-     digitalWrite(rele, HIGH);    
+    digitalWrite(rele, HIGH);
+    estado = true;
   } else {
     Serial.print("recibido <- ");
     Serial.println(command);
     digitalWrite(rele, LOW);
+    estado = false;
   }
  
 }
